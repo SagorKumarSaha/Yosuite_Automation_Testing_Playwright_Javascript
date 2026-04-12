@@ -68,3 +68,6 @@ npx playwright test --project=webkit
 npx playwright show-report
 ### Reports are automatically created under:
 /playwright-report
+
+## CI/CD with GitHub Actions
+This repository includes a GitHub Actions workflow to run the tests automatically on every push or pull request to the main branches.
