@@ -4,7 +4,7 @@ import signinPage from "../pages/signinPage";
 import homePage from "../pages/homePage";
 import inventoryPage from "../pages/inventoryPage"
 
-test.setTimeout(10000000)
+test.setTimeout(600000)
 
 const randomNum = Math.floor(Math.random() * 10000);
 const randomNum2 = Math.floor(Math.random() * 1000000);
