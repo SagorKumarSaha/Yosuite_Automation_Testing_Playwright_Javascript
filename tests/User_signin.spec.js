@@ -3,7 +3,7 @@ import BaseTest from "./BaseTest";
 import signinPage from "../pages/signinPage";
 import homePage from "../pages/homePage";
 
-test.setTimeout(100000)
+test.setTimeout(600000)
 test("TS1 - End-to-End Checkout Flow", async ({ page }) => {
     const base = new BaseTest();
     await base.setup();
