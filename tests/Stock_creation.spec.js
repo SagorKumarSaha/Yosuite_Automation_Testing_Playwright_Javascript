@@ -9,7 +9,7 @@ test.setTimeout(10000000)
 const randomNum = Math.floor(Math.random() * 10000);
 const randomNum2 = Math.floor(Math.random() * 1000000);
 
-test.only("TS3 - Stock Creation> Product Creation> Product Maintenance", async ({ page }) => {
+test("TS3 - Stock Creation> Product Creation> Product Maintenance", async ({ page }) => {
     const base = new BaseTest();
     await base.setup();
     const signinP = new signinPage(base.page);
