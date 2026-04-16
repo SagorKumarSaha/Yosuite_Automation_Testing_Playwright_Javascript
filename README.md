@@ -36,7 +36,7 @@ Make sure you have the following installed:
 ## Setup Instructions
 
 ### 1. Clone the Repository
-git clone "https://github.com/SagorKumarSaha/Yosuite_Automation_Testing_Playwright_Javascript.git"
+git clone "https://github.com/SagorKumarSaha/Yosuite_Automation_Testing_Playwright_Javascript.git" <br>
 cd Yosuite_Automation_Testing_Playwright_Javascript
 
 ### 2. Install Dependencies
