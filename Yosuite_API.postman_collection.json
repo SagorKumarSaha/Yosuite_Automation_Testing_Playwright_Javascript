@@ -1,0 +1,324 @@
+{
+  "info": {
+    "_postman_id": "cb44d2dd-df0e-4327-a86c-aea6013cb9f0",
+    "name": "Yosuite_API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32732118"
+  },
+  "item": [
+    {
+      "name": "login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let res = pm.response.json();\r",
+              "pm.environment.set(\"token\", res.data.token);\r",
+              "\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify message in response\", function () {\r",
+              "    pm.expect(res.message).to.eql(\"Welcome, You're Logged In!\");\r",
+              "}); \r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Origin",
+            "value": "https://microsoft.yosuite.net",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"wawoyep961@besenica.com\",\r\n  \"password\": \"HUG5dkQIJq@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-user-account.yosuite.net/api/auth",
+          "protocol": "https",
+          "host": [
+            "api-user-account",
+            "yosuite",
+            "net"
+          ],
+          "path": [
+            "api",
+            "auth"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Employee",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "var random = Math.floor(10000 + Math.random() * 90000);\r",
+              "var email = \"rony\" + random + \"@gmail.com\";\r",
+              "var staff_id = \"EMP\" + random;\r",
+              "\r",
+              "pm.environment.set(\"Vemail\", email);\r",
+              "pm.environment.set(\"Vstaff_id\", staff_id)"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let res = pm.response.json();\r",
+              "pm.test(\"Employee Added Successfully!\", function () {\r",
+              "    pm.expect(res.message.success).contains(\"Employee Added Successfully!\");\r",
+              "}); \r",
+              "\r",
+              "pm.test(\"Response Status Code 200\", function (){\r",
+              "    pm.response.to.have.status(200);    \r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {}
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Origin",
+            "value": "https://microsoft.yosuite.net",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "data",
+              "value": "{\n  \"first_name\": \"Sagor\",\n  \"last_name\": \"Saha\",\n  \"email\": \"{{Vemail}}\",\n  \"middle_name\": null,\n  \"phone\": \"\",\n  \"staff_id\": \"{{Vstaff_id}}\",\n  \"social_security_no\": \"123456789\",\n  \"date_of_birth\": null,\n  \"joining_date\": \"2026-04-05\",\n  \"hire_date\": null,\n  \"address_group\": {\n    \"present_address\": {\n      \"street_1\": \"1600 Pennsylvania Avenue NW\",\n      \"street_2\": null,\n      \"country\": \"Bangladesh\",\n      \"state\": \"Khulna\",\n      \"city\": \"Magura\",\n      \"zip\": \"20500\"\n    },\n    \"permanent_address\": {\n      \"same_as_present_address\": true,\n      \"street_1\": \"1600 Pennsylvania Avenue NW\",\n      \"street_2\": null,\n      \"country\": \"Bangladesh\",\n      \"state\": \"Khulna\",\n      \"city\": \"Magura\",\n      \"zip\": \"20500\"\n    }\n  },\n  \"employee_department_option_id\": \"69cde7833054cdbe81049520\",\n  \"employee_job_location_option_id\": \"693916856b0cc0a1d5068613\",\n  \"employee_job_type_option_id\": \"692fdff8397c6c094bfb44a9\",\n  \"employee_job_title_option_id\": \"69d7f2bc8ec8caffbb0d81e2\",\n  \"employee_status_option_id\": \"697b383429e1363495061cb6\",\n  \"employee_gender_option_id\": null,\n  \"shift_option_id\": \"692fe275f348e6963301e216\",\n  \"work_function\": null,\n  \"manager_id\": null,\n  \"who_to_contact_id\": null,\n  \"present_address\": null,\n  \"permanent_address\": null,\n  \"employer_tasks\": null,\n  \"joiner_tasks\": null,\n  \"joiner_questions\": {\n    \"697b3ceef1f074b159047766\": {\n      \"0\": true\n    },\n    \"695ddd1ce35026b82201d8b3\": null\n  }\n}",
+              "type": "text",
+              "uuid": "54bd62b8-e7bb-46d1-aa86-19e4edaf969c"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{BaseURL}}/people/employee/e-onboarding-steps/form-component/store-content",
+          "host": [
+            "{{BaseURL}}"
+          ],
+          "path": [
+            "people",
+            "employee",
+            "e-onboarding-steps",
+            "form-component",
+            "store-content"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Award Creation",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "var random = Math.floor(100000 + Math.random() * 90000);\r",
+              "var award = \"Monthly Best Employee - \" + random;\r",
+              "\r",
+              "pm.environment.set(\"Vaward\", award);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let res = pm.response.json();\r",
+              "pm.test(\"Award Created Successfully\", function () {\r",
+              "    pm.expect(res.message.success).contains(\"Data Inserted Successfully\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Status Code 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "data",
+              "value": "{\n  \"name\": \"{{Vaward}}\",\n  \"note\": \"Monthly best performer\",\n  \"award_item\": [\n    {\n      \"temp\": \"Award Item\",\n      \"currency\": \"USD\",\n      \"gift_name\": \"USD\",\n      \"price\": 100\n    }\n  ]\n}",
+              "type": "text",
+              "uuid": "47ef98c5-051f-4be1-bba1-ff43699d5e46"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{BaseURL}}/appreciations/award/form/form-component/store-content",
+          "host": [
+            "{{BaseURL}}"
+          ],
+          "path": [
+            "appreciations",
+            "award",
+            "form",
+            "form-component",
+            "store-content"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Announcement Creation",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "var random = Math.floor(100000 + Math.random() * 90000);\r",
+              "var announce = \"Monthly Best Employee - \" + random;\r",
+              "\r",
+              "pm.environment.set(\"Vannounce\", announce);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let res = pm.response.json();\r",
+              "pm.test(\"Announcement Created Successfully\", function () {\r",
+              "    pm.expect(res.message.success).contains(\"Data Inserted Successfully\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Status Code 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "data",
+              "value": "{\n  \"title\": \"{{Vannounce}}\",\n  \"content\": \"<p class=\\\"PlaygroundEditorTheme__paragraph\\\" dir=\\\"ltr\\\"><span style=\\\"white-space: pre-wrap;\\\">Best Performer</span></p>\",\n  \"attachments\": null,\n  \"applicable_scope\": \"all\",\n  \"exclude_with\": null,\n  \"is_event\": false,\n  \"pinned\": true,\n  \"enable_comments\": true,\n  \"color\": null,\n  \"category\": \"important\"\n}",
+              "type": "text",
+              "uuid": "394ec7f9-2d6d-4d91-b382-409c12b5803d"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{BaseURL}}/announcements/announcement/form/form-component/store-content",
+          "host": [
+            "{{BaseURL}}"
+          ],
+          "path": [
+            "announcements",
+            "announcement",
+            "form",
+            "form-component",
+            "store-content"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BaseURL",
+      "value": ""
+    }
+  ]
+}
